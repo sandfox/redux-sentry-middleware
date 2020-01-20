@@ -17,6 +17,12 @@ It's a rewrite of [raven-for-redux](https://github.com/captbaritone/raven-for-re
 
 ## Installation
 
+This package is also published to the github registry, so you'll need to add the following entry to your projects `.npmrc` file if you'd like to fetch it from there:
+
+    @sandfox:registry=https://npm.pkg.github.com
+
+install by running the following command:
+
     npm install --save @sandfox/redux-sentry-middleware
 
 ## Usage
