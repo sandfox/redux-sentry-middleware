@@ -4,6 +4,12 @@
 
 # Sentry Middleware for Redux
 
+Fork of https://github.com/vidit-sh/redux-sentry-middleware 
+- de-babel-ified, relies on react-native's implicit babel-ing of dependencies
+- de-travis'd
+- minor internal changes
+
+
 Logs the type of each dispatched action to Sentry as "breadcrumbs" and attaches
 your last action and current Redux state as additional context.
 
@@ -11,7 +17,7 @@ It's a rewrite of [raven-for-redux](https://github.com/captbaritone/raven-for-re
 
 ## Installation
 
-    npm install --save redux-sentry-middleware
+    npm install --save @sandfox/redux-sentry-middleware
 
 ## Usage
 
@@ -23,7 +29,7 @@ import * as Sentry from "@sentry/browser";
 // import * as Sentry from "@sentry/node";
 
 import { createStore, applyMiddleware } from "redux";
-import createSentryMiddleware from "redux-sentry-middleware";
+import createSentryMiddleware from "@sandfox/redux-sentry-middleware";
 
 import { reducer } from "./my_reducer";
 
@@ -84,10 +90,12 @@ See the Sentry [Breadcrumb documentation].
 
 #### `actionTransformer` _(Function)_
 
-Default: `action => action`
+Default: `undefined`
 
-In some cases your actions may be extremely large, or contain sensitive data.
-In those cases, you may want to transform your action before sending it to
+
+By default the last action is not attached to the event as in some cases your 
+actions may be extremely large, or contain sensitive data.
+If you want to optionally modify your action before sending it to
 Sentry. This function allows you to do so. It is passed the last dispatched
 `action` object, and should return a serializable value.
 
@@ -98,11 +106,12 @@ If you have specified a [`beforeSend`] when you configured Sentry, note that
 
 #### `stateTransformer` _(Function)_
 
-Default: `state => state`
+Default: `undefined`
 
-In some cases your state may be extremely large, or contain sensitive data.
-In those cases, you may want to transform your state before sending it to
-Sentry. This function allows you to do so. It is passed the current state
+By default the state is not attached to the event as in some cases your state may 
+be extremely large, or contain sensitive data.
+If you want optionally transform your state before sending it to
+Sentry, this function allows you to do so. It is passed the current state
 object, and should return a serializable value.
 
 Be careful not to mutate your `state` within this function.

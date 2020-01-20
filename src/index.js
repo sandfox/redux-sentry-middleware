@@ -1,4 +1,3 @@
-const identity = x => x;
 const getUndefined = () => {};
 const filter = () => true;
 const getType = action => action.type;
@@ -7,8 +6,8 @@ const createSentryMiddleware = (Sentry, options = {}) => {
   const {
     breadcrumbDataFromAction = getUndefined,
     breadcrumbMessageFromAction = getType,
-    actionTransformer = identity,
-    stateTransformer = identity,
+    actionTransformer,
+    stateTransformer,
     breadcrumbCategory = "redux-action",
     filterBreadcrumbActions = filter,
     getUserContext,
@@ -22,11 +21,13 @@ const createSentryMiddleware = (Sentry, options = {}) => {
       scope.addEventProcessor((event, hint) => {
         const state = store.getState();
 
-        event.extra = {
-          ...event.extra,
-          lastAction: actionTransformer(lastAction),
-          state: stateTransformer(state)
-        };
+        if (actionTransformer) {
+          event.extra.lastAction = actionTransformer(lastAction);
+        }
+
+        if (stateTransformer) {
+          event.extra.state = stateTransformer(state);
+        }
 
         if (getUserContext) {
           event.user = { ...event.user, ...getUserContext(state) };
@@ -47,7 +48,9 @@ const createSentryMiddleware = (Sentry, options = {}) => {
           category: breadcrumbCategory,
           message: breadcrumbMessageFromAction(action),
           level: "info",
-          data: breadcrumbDataFromAction(action)
+          ...(breadcrumbDataFromAction && {
+            data: breadcrumbDataFromAction(action)
+          })
         });
       }
 

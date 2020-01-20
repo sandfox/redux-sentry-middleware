@@ -1,39 +1,28 @@
 {
-  "name": "redux-sentry-middleware",
-  "version": "0.1.3",
-  "description": "Redux middleware for propagating Redux state/actions to use with new @sentry/browser and @sentry/node.",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.esm.js",
-  "browser": "dist/index.umd.js",
+  "name": "@sandfox/redux-sentry-middleware",
+  "version": "0.1.4",
+  "description": "Redux middleware for propagating Redux state/actions to use with new @sentry/react-native",
+  "main": "src/index.js",
   "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c -w",
-    "test": "jest",
-    "pretest": "npm run build"
+    "test": "prettier --check src/**/*.js"
   },
-  "repository": "git+https://github.com/ViditIsOnline/redux-sentry-middleware.git",
+  "repository": "git+https://github.com/sandfox/redux-sentry-middleware.git",
   "keywords": [
     "redux",
     "middleware",
     "sentry",
     "logging"
   ],
-  "author": "Vidit Shah",
+  "author": "sandfox",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ViditIsOnline/redux-sentry-middleware/issues"
+    "url": "https://github.com/sandfox/redux-sentry-middleware/issues"
   },
-  "homepage": "https://github.com/ViditIsOnline/redux-sentry-middleware#readme",
+  "homepage": "https://github.com/sandfox/redux-sentry-middleware#readme",
   "devDependencies": {
-    "@babel/core": "^7.1.2",
-    "@babel/preset-env": "^7.1.0",
-    "babel-core": "^7.0.0-bridge.0",
-    "jest": "^24.9.0",
-    "redux": "^4.0.0",
-    "rollup": "^0.66.4",
-    "rollup-plugin-babel": "^4.0.3"
+    "prettier": "1.19.1"
   },
   "files": [
-    "dist"
+    "src"
   ]
 }
